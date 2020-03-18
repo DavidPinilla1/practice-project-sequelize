@@ -1,4 +1,4 @@
-const { Product, Order } = require('../models/index.js')
+const { Product, Order,OrderProduct } = require('../models/index.js')
 const OrderController = {
     getAll(req,res){
         Order.findAll({
@@ -12,8 +12,9 @@ const OrderController = {
             fechaEntrega:req.body.fechaEntrega
         })
         .then(order=>{
-            order.addProduct(req.body.products);
-            res.send(order)
+            const products =req.body.products.map(product=>({...product,OrderId:order.id}));
+            OrderProduct.bulkCreate(products);
+            res.send(order);
         })
     }
 }
