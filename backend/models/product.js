@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
     image_path: DataTypes.STRING
   }, {});
   Product.associate = function (models) {
-    Product.belongsTo(models.Category)
+    Product.belongsTo(models.Category);
+    Product.belongsToMany(models.Order,{
+      through:models.OrderProduct
+    });//MANY TO MANY Relationship
   };
   return Product;
 };
