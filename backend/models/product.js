@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     image_path: DataTypes.STRING
   }, {});
   Product.associate = function (models) {
-    // associations can be defined here
+    Product.belongsTo(models.Category)
   };
   return Product;
 };
